@@ -1,0 +1,27 @@
+{
+    "name": "hanneskod/comphlete",
+    "description": "PHP completer",
+    "keywords": ["complete", "autocomplete"],
+    "homepage": "https://github.com/hanneskod/comphlete",
+    "type": "library",
+    "license": "Unlicense",
+    "authors": [
+        {
+            "name": "Hannes Forsgård",
+            "email": "hannes.forsgard@fripost.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "hanneskod\\comphlete\\": ["src/"]
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "spec\\hanneskod\\comphlete\\": ["spec/"]
+        }
+    },
+    "require": {
+        "php": ">=7.2"
+    }
+}

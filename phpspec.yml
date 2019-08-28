@@ -1,0 +1,10 @@
+suites:
+    giroapp_suite:
+        namespace: hanneskod\comphlete
+        psr4_prefix: hanneskod\comphlete
+
+matchers:
+    - spec\hanneskod\comphlete\phpspec\DictionaryMatcher
+    - spec\hanneskod\comphlete\phpspec\WordMatcher
+
+formatter.name: dot
