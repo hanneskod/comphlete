@@ -53,15 +53,12 @@ This script generates suggestions from a command line and a cursor position.
 Running it as
 
 ```shell
-php comphlete.php "command f" 8
+php comphlete.php "mycommand f" 10
 ```
 
 should output `foo`.
 
-> NOTE `command` is the name of the command we are autocompleting, it is simply
-> ignored, and can be anything at this point.
-
-To load inte you environment create a script like
+To load into you environment create a bash script (here named `load.sh`).
 
 ```bash
 #/usr/bin/env bash
@@ -73,19 +70,25 @@ _mycommand_comphletions() {
 complete -o default -F _mycommand_comphletions mycommand
 ```
 
+And source it (in `.bashrc`)
+
+```shell
+source load.sh
+```
+
 ### Using contexts
 
 A common design pattern is to have an application define a number of commands
-with there own sets of arguments and options. Comphlete supports this by the use
+with their own sets of arguments and options. Comphlete supports this by the use
 of contexts. Here is an app with an `import` and an `export` command.
 
 ```php
 $import = (new ContextDefinition('import'))
-    ->addArgument(2, ['some-argument'])
+    ->addArgument(1, ['some-argument'])
 ;
 
 $export = (new ContextDefinition('export'))
-    ->addArgument(2, ['another-argument'])
+    ->addArgument(1, ['another-argument'])
 ;
 
 $def = (new ContextContainerDefinition)
