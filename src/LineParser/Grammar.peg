@@ -1,0 +1,56 @@
+//<?php
+
+namespace hanneskod\comphlete\LineParser;
+
+use hanneskod\comphlete\Helper;
+
+grammar Grammar
+{
+    start TREE = RESET_ARG_COUNT nodes:LINE {
+        return new Tree(...Helper::flatten($nodes));
+    };
+
+    LINE = SPACE? COMMAND? (!END_OF_OPTIONS (OPTION / ARGUMENT / SPACE))* END_OF_OPTIONS? (ARGUMENT / SPACE)*;
+
+    RESET_ARG_COUNT = '' {
+        $this->argNr = 0;
+    };
+
+    COMMAND = name:$(CHAR+) {
+        return new Node($name);
+    };
+
+    ARGUMENT = name:$(CHAR+) ^ {
+        return new Argument($this->argNr++, $name);
+    };
+
+    OPTION = LONG_OPTION_WITH_VALUE / LONG_OPTION / SHORT_OPTION;
+
+    SHORT_OPTION = option:$('-' (!'-' CHAR)*) {
+        return new Option($option);
+    };
+
+    LONG_OPTION = name:$('--' (!OPTION_ASSIGNMENT CHAR)+) {
+        return new Option($name);
+    };
+
+    LONG_OPTION_WITH_VALUE = option:LONG_OPTION s1:SPACE? assignment:OPTION_ASSIGNMENT s2:SPACE? value:$(CHAR*) {
+        return [$option, $s1, $assignment, $s2, new OptionValue($option->getValue(), $value)];
+    };
+
+    OPTION_ASSIGNMENT = '=' {
+        return new OptionAssignmentOperator('=');
+    };
+
+    END_OF_OPTIONS = '--' space:SPACE {
+        return [new EndOfOptions('--'), $space];
+    };
+
+    CHAR = $(ESCAPE / (!SPACE .));
+
+    ESCAPE = $("\\" .);
+
+    SPACE = chars:$((" " / "\t" / "\n" / "\n")+) {
+        return new Space($chars);
+    };
+}

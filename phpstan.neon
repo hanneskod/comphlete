@@ -1,0 +1,7 @@
+parameters:
+	excludes_analyse:
+		- src/LineParser/Grammar.php
+	ignoreErrors:
+		-
+			message: '#Result of && is always false#'
+			path: %currentWorkingDirectory%/src/Suggester/OptionSuggester.php
