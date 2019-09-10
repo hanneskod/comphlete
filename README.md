@@ -7,8 +7,8 @@ Dynamic bash completion from PHP
 
 ## Why?
 
-Say you have a cli script to read some data on a customer, using comphlete you
-can autocomplete customer ids directly from the command line. It's both fun and
+Say you have a cli script to read some data, using comphlete you can
+autocomplete data identifiers directly from the command line. It's both fun and
 powerful. And works well with symfony console apps.
 
 ## Installation
@@ -47,7 +47,7 @@ source $(myapp.php _comphlete --generate-bash-script --app-name=myapp.php)
 ```
 
 > NOTE that the `ComphleteCommand` does not work for single command applications.
-> If your application does only contain a single symfony command you'll have to
+> If your application is a single command app you'll have to
 > revert to the default way of createing suggestions. See below.
 
 ### The (not so) hard way
