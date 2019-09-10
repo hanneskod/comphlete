@@ -1,5 +1,8 @@
 # comphlete
 
+[![Packagist Version](https://img.shields.io/packagist/v/hanneskod/comphlete.svg?style=flat-square)](https://packagist.org/packages/hanneskod/comphlete)
+[![Build Status](https://img.shields.io/travis/hanneskod/comphlete/master.svg?style=flat-square)](https://travis-ci.org/hanneskod/comphlete)
+
 Dynamic bash completion from PHP
 
 ## Why?
@@ -18,9 +21,36 @@ composer require hanneskod/comphlete
 
 ### With symfony apps
 
-...
+Create an empty symfony console application (here named `myapp.php`).
 
-### The hard way
+```php
+$application = new \Symfony\Component\Console\Application();
+
+$application->add(new \hanneskod\comphlete\Symfony\ComphleteCommand);
+
+$application->run();
+```
+
+This creates a hidden command named `_comphlete` that handles autocompletion.
+Running it as
+
+```shell
+php myapp.php _comphlete "myapp.php h" 10
+```
+
+should output `help`.
+
+To register autocompletion in your enviroment use (in `.bashrc`)
+
+```shell
+source $(myapp.php _comphlete --generate-bash-script --app-name=myapp.php)
+```
+
+> NOTE that the `ComphleteCommand` does not work for single command applications.
+> If your application does only contain a single symfony command you'll have to
+> revert to the default way of createing suggestions. See below.
+
+### The (not so) hard way
 
 Create your autocomplete definition in a php script (here named `comphlete.php`).
 

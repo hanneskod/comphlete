@@ -22,9 +22,12 @@
         }
     },
     "require": {
-        "php": ">=7.2"
+        "php": ">=7"
+    },
+    "suggest": {
+        "symfony/console": "Generates completions for symfony apps with no hassle"
     },
     "require-dev": {
-        "scato/phpeg": "^1"
+        "symfony/console": "^3.2|^4"
     }
 }

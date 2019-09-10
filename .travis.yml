@@ -1,0 +1,29 @@
+sudo: false
+
+language: php
+
+php:
+    - 7.3
+    - 7.2
+    - 7.1
+    - 7.0
+
+env:
+  global:
+    - DEFAULT=1
+
+matrix:
+  include:
+    - php: 7.0
+      env: PREFER_LOWEST=1
+
+install:
+    - composer install
+    - if [[ $PREFER_LOWEST == 1 ]]; then composer update --prefer-lowest --prefer-dist --prefer-stable --no-interaction; fi
+    - compoer global require phpspec/phpspec:^5
+    - compoer global require behat/behat:^3
+    - export PATH=$PATH:$HOME/.config/composer/vendor/bin/
+
+script:
+    - phpspec run --verbose
+    - behat

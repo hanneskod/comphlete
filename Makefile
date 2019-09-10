@@ -1,37 +1,58 @@
-PHPSPEC=phpspec
-PHPSTAN=phpstan
-PHPCS=phpcs
-PHPEG=vendor/bin/phpeg
-
-COMPOSER_CMD=composer
+BEHAT:=$(shell command -v behat 2> /dev/null)
+PHPSPEC:=$(shell command -v phpspec 2> /dev/null)
+PHPSTAN:=$(shell command -v phpstan 2> /dev/null)
+PHPCS:=$(shell command -v phpcs 2> /dev/null)
+PHPEG:=$(shell command -v phpeg 2> /dev/null)
+COMPOSER_CMD:=$(shell command -v composer 2> /dev/null)
 
 .DEFAULT_GOAL=all
 
 GRAMMAR=src/LineParser/Grammar.php
 
 $(GRAMMAR): src/LineParser/Grammar.peg composer.lock
-	$(PHPEG) generate $<
+ifndef PHPEG
+    $(error "phpeg is not available, please install to continue")
+endif
+	phpeg generate $<
 
 .PHONY: all clean
 
-all: phpspec phpstan phpcs
+all: phpspec behat phpstan phpcs
 
 clean:
 	rm -f $(GRAMMAR)
 	rm -rf vendor
 	rm -f composer.lock
 
-.PHONY: phpspec phpstan phpcs
+.PHONY: phpspec behat phpstan phpcs
 
 phpspec: composer.lock $(GRAMMAR)
-	$(PHPSPEC) run
+ifndef PHPSPEC
+    $(error "phpspec is not available, please install to continue")
+endif
+	phpspec run
+
+behat: composer.lock $(GRAMMAR)
+ifndef BEHAT
+    $(error "behat is not available, please install to continue")
+endif
+	behat
 
 phpstan: composer.lock
-	$(PHPSTAN) analyze -c phpstan.neon -l 7 src
+ifndef PHPSTAN
+    $(error "phpstan is not available, please install to continue")
+endif
+	phpstan analyze -c phpstan.neon -l 7 src
 
 phpcs: composer.lock
-	$(PHPCS) src --standard=PSR2 --ignore=$(GRAMMAR)
-	$(PHPCS) spec --standard=spec/ruleset.xml
+ifndef PHPCS
+    $(error "phpcs is not available, please install to continue")
+endif
+	phpcs src --standard=PSR2 --ignore=$(GRAMMAR)
+	phpcs spec --standard=spec/ruleset.xml
 
 composer.lock: composer.json
-	$(COMPOSER_CMD) install
+ifndef COMPOSER_CMD
+    $(error "composer is not available, please install to continue")
+endif
+	composer install
