@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class ComphleteCommand extends Command
 {
-    private const BASH_POSTFIX = '_comphlete_load_script.sh';
+    const BASH_POSTFIX = '_comphlete_load_script.sh';
 
     /** @var ?DefinitionProcessor */
     private $definitionProcessor;
