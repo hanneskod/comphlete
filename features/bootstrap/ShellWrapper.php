@@ -62,7 +62,7 @@ class ShellWrapper
         return new Result($returnCode, $output, $errorOutput);
     }
 
-    public function createFile(string $name, string $content): void
+    public function createFile(string $name, string $content)
     {
         file_put_contents("{$this->cwd}/$name", $content);
     }
