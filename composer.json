@@ -1,6 +1,6 @@
 {
     "name": "hanneskod/comphlete",
-    "description": "PHP completer",
+    "description": "Dynamic bash completion from PHP",
     "keywords": ["complete", "autocomplete"],
     "homepage": "https://github.com/hanneskod/comphlete",
     "type": "library",
