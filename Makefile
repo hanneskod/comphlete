@@ -36,7 +36,7 @@ behat: composer.lock $(GRAMMAR)
 ifndef BEHAT
     $(error "behat is not available, please install to continue")
 endif
-	behat
+	behat --stop-on-failure
 
 phpstan: composer.lock
 ifndef PHPSTAN

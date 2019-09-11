@@ -28,7 +28,7 @@ final class ComphleteCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('_comphlete')
+            ->setName('_complete')
             ->setHidden(true)
             ->addArgument('line', InputArgument::OPTIONAL, '', '')
             ->addArgument('cursor', InputArgument::OPTIONAL, '', '0')
@@ -77,7 +77,7 @@ final class ComphleteCommand extends Command
 #/usr/bin/env bash
 
 _{$appName}_comphletions() {
-    COMPREPLY=($(compgen -W "$({$appName} _comphlete "\${COMP_LINE}" "\${COMP_POINT}")"))
+    COMPREPLY=($(compgen -W "$({$appName} _complete "\${COMP_LINE}" "\${COMP_POINT}")"))
 }
 
 complete -o default -F _{$appName}_comphletions {$appName}

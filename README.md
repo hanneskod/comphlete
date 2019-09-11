@@ -31,11 +31,11 @@ $application->add(new \hanneskod\comphlete\Symfony\ComphleteCommand);
 $application->run();
 ```
 
-This creates a hidden command named `_comphlete` that handles autocompletion.
+This creates a hidden command named `_complete` that handles autocompletion.
 Running it as
 
 ```shell
-php myapp.php _comphlete "myapp.php h" 10
+php myapp.php _complete "myapp.php h" 10
 ```
 
 should output `help`.
@@ -43,7 +43,7 @@ should output `help`.
 To register autocompletion in your enviroment use (in `.bashrc`)
 
 ```shell
-source $(myapp.php _comphlete --generate-bash-script --app-name=myapp.php)
+source $(myapp.php _complete --generate-bash-script --app-name=myapp.php)
 ```
 
 > NOTE that the `ComphleteCommand` does not work for single command applications.
