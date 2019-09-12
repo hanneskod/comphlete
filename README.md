@@ -78,11 +78,10 @@ $completer = new Completer($definition);
 
 $input = (new InputFactory)->createFromArgv($argv);
 
-echo implode('|', $completer->complete($input));
+echo Helper::dump($completer->complete($input));
 ```
 
 This script generates suggestions from a command line and a cursor position.
-Running it as
 
 ```shell
 php comphlete.php "mycommand f" 10
@@ -92,18 +91,8 @@ should output `foo`.
 
 To load into you environment create a bash script (here named `load.sh`).
 
-```bash
-#/usr/bin/env bash
-
-_mycommand_comphletions() {
-    IFS='|'
-    for reply in $(php comphlete.php "${COMP_LINE}" "${COMP_POINT}")
-    do
-        COMPREPLY+=($reply)
-    done
-}
-
-complete -o default -o nospace -F _mycommand_comphletions mycommand
+```shell
+php bash_load_script_template.php mycommand > load.sh
 ```
 
 And source it (in `.bashrc`)
@@ -136,5 +125,5 @@ $completer = new Completer($def);
 
 $input = (new InputFactory)->createFromArgv($argv);
 
-echo implode('|', $completer->complete($input));
+echo Helper::dump($completer->complete($input));
 ```

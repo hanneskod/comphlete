@@ -37,6 +37,17 @@ class FeatureContext implements Context
     }
 
     /**
+     * @Given the bash_load_script_template.php script
+     */
+    public function theBashLoadScriptTemplatePhpScript()
+    {
+        $this->shell->createFile(
+            'bash_load_script_template.php',
+            file_get_contents(__DIR__ . '/../../bash_load_script_template.php')
+        );
+    }
+
+    /**
      * @When I run :command
      */
     public function iRun(string $command)

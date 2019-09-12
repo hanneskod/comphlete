@@ -39,4 +39,9 @@ class HelperSpec extends ObjectBehavior
     {
         $this->addTrailingSpaces(['foo', 'bar', 'baz'], '')->shouldReturn(['foo ', 'bar ', 'baz ']);
     }
+
+    function it_can_dump_suggestions()
+    {
+        $this->dump(['foo', 'bar'], '&')->shouldReturn('foo&bar');
+    }
 }

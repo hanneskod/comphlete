@@ -27,7 +27,9 @@ class Helper
     }
 
     /**
-     * @param  string[] $values
+     * Keep values starting with string
+     *
+     * @param string[] $values
      */
     public static function filter(array $values, string $start): array
     {
@@ -47,7 +49,9 @@ class Helper
     }
 
     /**
-     * @param  string[] $values
+     * Add a trailing space to all array values
+     *
+     * @param string[] $values
      */
     public static function addTrailingSpaces(array $values): array
     {
@@ -57,5 +61,10 @@ class Helper
             },
             $values
         );
+    }
+
+    public static function dump(array $suggestions, string $ifs = '|'): string
+    {
+        return implode($ifs, $suggestions);
     }
 }

@@ -72,24 +72,15 @@ final class ComphleteCommand extends Command
     private function generateBashScript(string $appName): string
     {
         $appName = $appName ?: $this->getApplication()->getName();
-
-        $fname = sys_get_temp_dir() . '/' . $appName . self::BASH_POSTFIX;
-
+        $subCommand = '_complete';
         $ifs = self::IFS;
 
-        $script = <<<END_OF_SCRIPT
-#/usr/bin/env bash
+        ob_start();
+        require __DIR__ . '/../../bash_load_script_template.php';
+        $script = ob_get_clean();
+        ob_end_clean();
 
-_{$appName}_comphletions() {
-    IFS='{$ifs}'
-    for reply in $({$appName} _complete "\${COMP_LINE}" "\${COMP_POINT}")
-    do
-        COMPREPLY+=(\$reply)
-    done
-}
-
-complete -o default -o nospace -F _{$appName}_comphletions {$appName}
-END_OF_SCRIPT;
+        $fname = sys_get_temp_dir() . '/' . $appName . self::BASH_POSTFIX;
 
         file_put_contents($fname, $script);
 

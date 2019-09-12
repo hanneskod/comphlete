@@ -148,3 +148,9 @@ Feature: Running in default mode
        """
    When I run "php comphlete.php 'a unknown' 5"
    Then the output is ""
+
+  Scenario: I generate a bash load script
+    Given the bash_load_script_template.php script
+    When I run "php bash_load_script_template.php comphletetest > load.sh"
+    And I run "bash load.sh"
+    Then there is no error
