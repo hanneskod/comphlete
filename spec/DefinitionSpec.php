@@ -56,7 +56,7 @@ class DefinitionSpec extends ObjectBehavior
         $this->getSuggester($tree)->shouldBeLike(
             new CombinedSuggester(
                 new ArgumentSuggester([]),
-                new OptionSuggester(['--foo']),
+                new OptionSuggester(['--foo ']),
                 new OptionValueSuggester(['--foo' => []])
             )
         );
@@ -69,7 +69,7 @@ class DefinitionSpec extends ObjectBehavior
         $this->getSuggester($tree)->shouldBeLike(
             new CombinedSuggester(
                 new ArgumentSuggester([]),
-                new OptionSuggester(['--foo']),
+                new OptionSuggester(['--foo ']),
                 new OptionValueSuggester(['--foo' => []])
             )
         );

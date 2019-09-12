@@ -32,7 +32,7 @@ class ArgumentSuggesterSpec extends ObjectBehavior
     function it_returns_suggestions_from_array()
     {
         $this->beConstructedWith([0 => ['foo', 'bar', 'baz']]);
-        $this->getSuggestions(new Argument(0, 'b'))->shouldReturn(['bar', 'baz']);
+        $this->getSuggestions(new Argument(0, 'b'))->shouldReturn(['bar ', 'baz ']);
     }
 
     function it_returns_empty_array_if_opt_is_not_specified()
@@ -52,7 +52,7 @@ class ArgumentSuggesterSpec extends ObjectBehavior
         $this->beConstructedWith([1 => function () {
             return ['foo', 'bar', 'baz'];
         }]);
-        $this->getSuggestions(new Argument(1, 'b'))->shouldReturn(['bar', 'baz']);
+        $this->getSuggestions(new Argument(1, 'b'))->shouldReturn(['bar ', 'baz ']);
     }
 
     function it_throws_if_callable_does_not_return_array()

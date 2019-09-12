@@ -39,6 +39,6 @@ final class OptionValueSuggester implements SuggesterInterface
             throw new \UnexpectedValueException('Suggstions must be an array');
         }
 
-        return Helper::filter($suggestions, $node->getValue());
+        return Helper::addTrailingSpaces(Helper::filter($suggestions, $node->getValue()));
     }
 }

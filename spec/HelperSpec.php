@@ -34,4 +34,9 @@ class HelperSpec extends ObjectBehavior
     {
         $this->filter(['foo', 'bar', 'baz'], '')->shouldReturn(['foo', 'bar', 'baz']);
     }
+
+    function it_can_append_spaces()
+    {
+        $this->addTrailingSpaces(['foo', 'bar', 'baz'], '')->shouldReturn(['foo ', 'bar ', 'baz ']);
+    }
 }

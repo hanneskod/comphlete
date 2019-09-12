@@ -10,7 +10,19 @@ Feature: Running in symfony mode
         $application->run();
         """
     When I run "php comphlete.php  _complete 'a h' 2"
-    Then the output is "help"
+    Then the output is "help "
+
+  Scenario: I complete an option
+    Given a script named "comphlete.php":
+        """
+        $application = new \Symfony\Component\Console\Application();
+
+        $application->add(new \hanneskod\comphlete\Symfony\ComphleteCommand);
+
+        $application->run();
+        """
+    When I run "php comphlete.php  _complete 'a help --' 9"
+    Then the output is "--format=|--raw "
 
   Scenario: I change the definition of a standard symfony command
     Given a script named "comphlete.php":
@@ -36,7 +48,7 @@ Feature: Running in symfony mode
         $application->run();
         """
     When I run "php comphlete.php  _complete 'a help f' 8"
-    Then the output is "foobar"
+    Then the output is "foobar "
 
   Scenario: I change the name of the complete command
     Given a script named "comphlete.php":
@@ -52,7 +64,7 @@ Feature: Running in symfony mode
         $application->run();
         """
     When I run "php comphlete.php foobar 'a h' 2"
-    Then the output is "help"
+    Then the output is "help "
 
   Scenario: I generate a bash load script
     Given a script named "comphlete.php":

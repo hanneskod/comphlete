@@ -16,6 +16,8 @@ final class ComphleteCommand extends Command
 {
     const BASH_POSTFIX = '_comphlete_load_script.sh';
 
+    const IFS = '|';
+
     /** @var ?DefinitionProcessor */
     private $definitionProcessor;
 
@@ -64,7 +66,7 @@ final class ComphleteCommand extends Command
 
         $suggestions = $completer->complete($input);
 
-        $output->write(implode(' ', $suggestions));
+        $output->write(implode(self::IFS, $suggestions));
     }
 
     private function generateBashScript(string $appName): string
@@ -73,15 +75,20 @@ final class ComphleteCommand extends Command
 
         $fname = sys_get_temp_dir() . '/' . $appName . self::BASH_POSTFIX;
 
+        $ifs = self::IFS;
+
         $script = <<<END_OF_SCRIPT
 #/usr/bin/env bash
 
 _{$appName}_comphletions() {
-    COMPREPLY=($(compgen -W "$({$appName} _complete "\${COMP_LINE}" "\${COMP_POINT}")"))
+    IFS='{$ifs}'
+    for reply in $({$appName} _complete "\${COMP_LINE}" "\${COMP_POINT}")
+    do
+        COMPREPLY+=(\$reply)
+    done
 }
 
-complete -o default -F _{$appName}_comphletions {$appName}
-
+complete -o default -o nospace -F _{$appName}_comphletions {$appName}
 END_OF_SCRIPT;
 
         file_put_contents($fname, $script);

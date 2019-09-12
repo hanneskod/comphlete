@@ -55,7 +55,9 @@ source $(myapp.php _complete --generate-bash-script --app-name=myapp.php)
 Create your autocomplete definition in a php script (here named `comphlete.php`).
 
 ```php
-$definition = (new hanneskod\comphlete\Definition)
+namespace hanneskod\comphlete;
+
+$definition = (new Definition)
     // first argument with a fixed set of suggestions
     ->addArgument(0, ['foo', 'bar', 'baz'])
 
@@ -76,7 +78,7 @@ $completer = new Completer($definition);
 
 $input = (new InputFactory)->createFromArgv($argv);
 
-echo implode(' ', $completer->complete($input));
+echo implode('|', $completer->complete($input));
 ```
 
 This script generates suggestions from a command line and a cursor position.
@@ -94,10 +96,14 @@ To load into you environment create a bash script (here named `load.sh`).
 #/usr/bin/env bash
 
 _mycommand_comphletions() {
-    COMPREPLY=($(compgen -W "$(php comphlete.php "${COMP_LINE}" "${COMP_POINT}")"))
+    IFS='|'
+    for reply in $(php comphlete.php "${COMP_LINE}" "${COMP_POINT}")
+    do
+        COMPREPLY+=($reply)
+    done
 }
 
-complete -o default -F _mycommand_comphletions mycommand
+complete -o default -o nospace -F _mycommand_comphletions mycommand
 ```
 
 And source it (in `.bashrc`)
@@ -130,5 +136,5 @@ $completer = new Completer($def);
 
 $input = (new InputFactory)->createFromArgv($argv);
 
-echo implode(' ', $completer->complete($input));
+echo implode('|', $completer->complete($input));
 ```

@@ -45,4 +45,17 @@ class Helper
 
         return $filtered;
     }
+
+    /**
+     * @param  string[] $values
+     */
+    public static function addTrailingSpaces(array $values): array
+    {
+        return array_map(
+            function (string $value) {
+                return $value . ' ';
+            },
+            $values
+        );
+    }
 }

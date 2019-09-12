@@ -29,7 +29,7 @@ final class Definition implements DefinitionInterface
         $option = '--' . $option;
 
         if (is_null($suggestions)) {
-            $this->options[$option] = $option;
+            $this->options[$option] = $option . ' ';
             $this->optionValues[$option] = [];
             return $this;
         }
