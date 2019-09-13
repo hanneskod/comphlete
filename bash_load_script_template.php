@@ -22,7 +22,7 @@ if (!$appName) {
 
 _<?=$appName?>_completions() {
     IFS='<?=$ifs?>'
-    for reply in $(<?=$appName?> <?=$subCommand?> "${COMP_LINE}" "${COMP_POINT}")
+    for reply in $(<?=$appName?> <?=$subCommand?> "${COMP_LINE}" "${COMP_POINT}" "${COMP_WORDS[COMP_CWORD]}")
     do
         COMPREPLY+=($reply)
     done

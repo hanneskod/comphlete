@@ -42,6 +42,6 @@ final class OptionSuggester implements SuggesterInterface
             throw new \UnexpectedValueException('Suggester callable must return an array');
         }
 
-        return Helper::filter($suggestions, $node->getValue());
+        return $suggestions;
     }
 }

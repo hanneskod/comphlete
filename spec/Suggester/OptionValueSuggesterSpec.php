@@ -33,7 +33,7 @@ class OptionValueSuggesterSpec extends ObjectBehavior
     function it_returns_suggestions_from_array()
     {
         $this->beConstructedWith(['--opt' => ['foo', 'bar', 'baz']]);
-        $this->getSuggestions(new OptionValue('--opt', 'b'))->shouldReturn(['bar ', 'baz ']);
+        $this->getSuggestions(new OptionValue('--opt', 'b'))->shouldReturn(['foo ', 'bar ', 'baz ']);
     }
 
     function it_returns_empty_array_if_opt_is_not_specified()
@@ -53,7 +53,7 @@ class OptionValueSuggesterSpec extends ObjectBehavior
         $this->beConstructedWith(['--opt' => function () {
             return ['foo', 'bar', 'baz'];
         }]);
-        $this->getSuggestions(new OptionValue('--opt', 'b'))->shouldReturn(['bar ', 'baz ']);
+        $this->getSuggestions(new OptionValue('--opt', 'b'))->shouldReturn(['foo ', 'bar ', 'baz ']);
     }
 
     function it_throws_if_callable_does_not_return_array()

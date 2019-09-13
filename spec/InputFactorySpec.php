@@ -26,16 +26,16 @@ class InputFactorySpec extends ObjectBehavior
     function it_can_create_from_values($parser, Tree $tree)
     {
         $parser->parse('foobar')->willReturn($tree);
-        $this->createFromValues('foobar', 1)->shouldBeLike(
-            new Input($tree->getWrappedObject(), 1)
+        $this->createFromValues('foobar', 1, 'to_replace')->shouldBeLike(
+            new Input($tree->getWrappedObject(), 1, 'to_replace')
         );
     }
 
     function it_can_create_from_argv($parser, Tree $tree)
     {
         $parser->parse('foobar')->willReturn($tree);
-        $this->createFromArgv(['', 'foobar', '1'])->shouldBeLike(
-            new Input($tree->getWrappedObject(), 1)
+        $this->createFromArgv(['', 'foobar', '1', 'to_replace'])->shouldBeLike(
+            new Input($tree->getWrappedObject(), 1, 'to_replace')
         );
     }
 
@@ -43,7 +43,7 @@ class InputFactorySpec extends ObjectBehavior
     {
         $parser->parse('')->willReturn($tree);
         $this->createFromArgv([])->shouldBeLike(
-            new Input($tree->getWrappedObject(), 0)
+            new Input($tree->getWrappedObject(), 0, '')
         );
     }
 
@@ -55,5 +55,10 @@ class InputFactorySpec extends ObjectBehavior
     function it_throws_on_argv_non_digit_cursor_pos()
     {
         $this->shouldThrow(\InvalidArgumentException::class)->duringCreateFromArgv(['', '', 'not-digits']);
+    }
+
+    function it_throws_on_argv_non_string_to_replace()
+    {
+        $this->shouldThrow(\InvalidArgumentException::class)->duringCreateFromArgv(['', '', '0', ['array-not-string']]);
     }
 }

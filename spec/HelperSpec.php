@@ -44,4 +44,19 @@ class HelperSpec extends ObjectBehavior
     {
         $this->dump(['foo', 'bar'], '&')->shouldReturn('foo&bar');
     }
+
+    function it_can_explode()
+    {
+        $this->explode(['foo:bar', 'foo:baz'])->shouldReturn(['foo:bar', 'foo', 'bar', 'foo:baz', 'baz']);
+    }
+
+    function it_can_explode_only_alphanum()
+    {
+        $this->explode(['foobar'])->shouldReturn(['foobar']);
+    }
+
+    function it_ignores_spaces_on_explode()
+    {
+        $this->explode(['foo:bar '])->shouldReturn(['foo:bar ', 'foo', 'bar ']);
+    }
 }

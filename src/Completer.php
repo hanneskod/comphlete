@@ -20,6 +20,16 @@ class Completer
 
         $node = $input->getCurrentNode();
 
-        return $suggester->handles($node) ? $suggester->getSuggestions($node) : [];
+        if (!$suggester->handles($node)) {
+            return [];
+        }
+
+        $suggestions = $suggester->getSuggestions($node);
+
+        if ($node->getValue() != $input->getWordToReplace()) {
+            $suggestions = Helper::explode($suggestions);
+        }
+
+        return Helper::filter($suggestions, $input->getWordToReplace());
     }
 }

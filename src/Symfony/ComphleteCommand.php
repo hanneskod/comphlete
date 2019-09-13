@@ -34,6 +34,7 @@ final class ComphleteCommand extends Command
             ->setHidden(true)
             ->addArgument('line', InputArgument::OPTIONAL, '', '')
             ->addArgument('cursor', InputArgument::OPTIONAL, '', '0')
+            ->addArgument('to-replace', InputArgument::OPTIONAL, '', '')
             ->addOption('generate-bash-script', null, InputOption::VALUE_NONE)
             ->addOption('app-name', null, InputOption::VALUE_REQUIRED)
         ;
@@ -62,7 +63,10 @@ final class ComphleteCommand extends Command
         /** @var string */
         $cursor = $input->getArgument('cursor');
 
-        $input = (new InputFactory)->createFromValues($line, (int)$cursor);
+        /** @var string */
+        $toReplace = $input->getArgument('to-replace');
+
+        $input = (new InputFactory)->createFromValues($line, (int)$cursor, $toReplace);
 
         $suggestions = $completer->complete($input);
 
@@ -72,13 +76,12 @@ final class ComphleteCommand extends Command
     private function generateBashScript(string $appName): string
     {
         $appName = $appName ?: $this->getApplication()->getName();
-        $subCommand = '_complete';
+        $subCommand = '_complete --';
         $ifs = self::IFS;
 
         ob_start();
         require __DIR__ . '/../../bash_load_script_template.php';
         $script = ob_get_clean();
-        ob_end_clean();
 
         $fname = sys_get_temp_dir() . '/' . $appName . self::BASH_POSTFIX;
 

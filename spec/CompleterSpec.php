@@ -29,8 +29,11 @@ class CompleterSpec extends ObjectBehavior
     {
         $input->getSyntaxTree()->willReturn($tree);
         $input->getCurrentNode()->willReturn($node);
+        $input->getWordToReplace()->willReturn('');
 
         $definition->getSuggester($tree)->willReturn($suggester);
+
+        $node->getValue()->willReturn('');
 
         $suggester->handles($node)->willReturn(true);
         $suggester->getSuggestions($node)->willReturn(['foobar']);
@@ -47,11 +50,30 @@ class CompleterSpec extends ObjectBehavior
     ) {
         $input->getSyntaxTree()->willReturn($tree);
         $input->getCurrentNode()->willReturn($node);
+        $input->getWordToReplace()->willReturn('');
 
         $definition->getSuggester($tree)->willReturn($suggester);
+
+        $node->getValue()->willReturn('');
 
         $suggester->handles($node)->willReturn(false);
 
         $this->complete($input)->shouldReturn([]);
+    }
+
+    function it_completes_namespaced($definition, SuggesterInterface $suggester, Input $input, Tree $tree, Node $node)
+    {
+        $input->getSyntaxTree()->willReturn($tree);
+        $input->getCurrentNode()->willReturn($node);
+        $input->getWordToReplace()->willReturn('bar');
+
+        $definition->getSuggester($tree)->willReturn($suggester);
+
+        $node->getValue()->willReturn('foo:bar');
+
+        $suggester->handles($node)->willReturn(true);
+        $suggester->getSuggestions($node)->willReturn(['bar']);
+
+        $this->complete($input)->shouldReturn(['bar']);
     }
 }

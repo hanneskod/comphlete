@@ -9,7 +9,7 @@ Feature: Running in symfony mode
 
         $application->run();
         """
-    When I run "php comphlete.php  _complete 'a h' 2"
+    When I run "php comphlete.php _complete -- 'a h' 2 h"
     Then the output is "help "
 
   Scenario: I complete an option
@@ -21,7 +21,7 @@ Feature: Running in symfony mode
 
         $application->run();
         """
-    When I run "php comphlete.php  _complete 'a help --' 9"
+    When I run "php comphlete.php _complete -- 'a help --' 9 --"
     Then the output is "--format=|--raw "
 
   Scenario: I change the definition of a standard symfony command
@@ -47,7 +47,7 @@ Feature: Running in symfony mode
 
         $application->run();
         """
-    When I run "php comphlete.php  _complete 'a help f' 8"
+    When I run "php comphlete.php _complete -- 'a help f' 8 f"
     Then the output is "foobar "
 
   Scenario: I change the name of the complete command
@@ -63,7 +63,7 @@ Feature: Running in symfony mode
 
         $application->run();
         """
-    When I run "php comphlete.php foobar 'a h' 2"
+    When I run "php comphlete.php foobar 'a h' 2 h"
     Then the output is "help "
 
   Scenario: I generate a bash load script
@@ -75,7 +75,7 @@ Feature: Running in symfony mode
 
         $application->run();
         """
-    When I run "php comphlete.php  _complete --generate-bash-script --app-name=comphletetest"
+    When I run "php comphlete.php _complete --generate-bash-script --app-name=comphletetest"
     And I collect the output as '$output'
     And I expand and run "bash $output"
     Then there is no error

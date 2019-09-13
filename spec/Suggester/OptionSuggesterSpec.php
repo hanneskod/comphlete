@@ -27,7 +27,7 @@ class OptionSuggesterSpec extends ObjectBehavior
     function it_returns_suggestions_from_array()
     {
         $this->beConstructedWith(['foo', 'bar', 'baz']);
-        $this->getSuggestions(new Option('b'))->shouldReturn(['bar', 'baz']);
+        $this->getSuggestions(new Option('b'))->shouldReturn(['foo', 'bar', 'baz']);
     }
 
     function it_returns_suggestions_from_callable()
@@ -35,7 +35,7 @@ class OptionSuggesterSpec extends ObjectBehavior
         $this->beConstructedWith(function () {
             return ['foo', 'bar', 'baz'];
         });
-        $this->getSuggestions(new Option('b'))->shouldReturn(['bar', 'baz']);
+        $this->getSuggestions(new Option('b'))->shouldReturn(['foo', 'bar', 'baz']);
     }
 
     function it_throws_if_callable_does_not_return_array()
