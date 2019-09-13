@@ -21,11 +21,13 @@ if (!$appName) {
 #/usr/bin/env bash
 
 _<?=$appName?>_completions() {
+    local old_ifs=$IFS
     IFS='<?=$ifs?>'
     for reply in $(<?=$appName?> <?=$subCommand?> "${COMP_LINE}" "${COMP_POINT}" "${COMP_WORDS[COMP_CWORD]}")
     do
         COMPREPLY+=($reply)
     done
+    IFS=$old_ifs
 }
 
 complete -o default -o nospace -F _<?=$appName?>_completions <?=$appName?>
