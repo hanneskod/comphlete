@@ -24,11 +24,13 @@ class Completer
             return [];
         }
 
-        $suggestions = $suggester->getSuggestions($node);
+        $suggestions = Helper::filter($suggester->getSuggestions($node), $node->getValue());
 
-        if ($node->getValue() != $input->getWordToReplace()) {
-            $suggestions = Helper::explode($suggestions);
+        if ($node->getValue() == $input->getWordToReplace()) {
+            return $suggestions;
         }
+
+        $suggestions = Helper::explode($suggestions);
 
         return Helper::filter($suggestions, $input->getWordToReplace());
     }

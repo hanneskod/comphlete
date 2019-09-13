@@ -65,14 +65,14 @@ class CompleterSpec extends ObjectBehavior
     {
         $input->getSyntaxTree()->willReturn($tree);
         $input->getCurrentNode()->willReturn($node);
-        $input->getWordToReplace()->willReturn('bar');
+        $input->getWordToReplace()->willReturn('b');
 
         $definition->getSuggester($tree)->willReturn($suggester);
 
         $node->getValue()->willReturn('foo:bar');
 
         $suggester->handles($node)->willReturn(true);
-        $suggester->getSuggestions($node)->willReturn(['bar']);
+        $suggester->getSuggestions($node)->willReturn(['foo:bar']);
 
         $this->complete($input)->shouldReturn(['bar']);
     }

@@ -185,6 +185,24 @@ Feature: Running in default mode
     When I run "php comphlete.php 'a foo:b' 6 b"
     Then the output is "bar |baz "
 
+  Scenario: I complete a namespaced argument with reused name
+    Given a script named "comphlete.php":
+      """
+      namespace hanneskod\comphlete;
+
+      $definition = (new Definition)
+        ->addArgument(0, ['foo:bar', 'baz'])
+      ;
+
+      $completer = new Completer($definition);
+
+      $input = (new InputFactory)->createFromArgv($argv);
+
+      echo Helper::dump($completer->complete($input));
+      """
+    When I run "php comphlete.php 'a foo:b' 6 b"
+    Then the output is "bar "
+
   Scenario: I generate a bash load script
     Given the bash_load_script_template.php script
     When I run "php bash_load_script_template.php comphletetest > load.sh"
