@@ -21,8 +21,7 @@ matrix:
 install:
     - composer install
     - if [[ $PREFER_LOWEST == 1 ]]; then composer update --prefer-lowest --prefer-dist --prefer-stable --no-interaction; fi
-    - composer global require phpspec/phpspec
-    - composer global require behat/behat
+    - composer global require behat/behat phpspec/phpspec
     - export PATH=$PATH:$HOME/.config/composer/vendor/bin/
 
 script:
