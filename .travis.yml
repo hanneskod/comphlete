@@ -3,6 +3,7 @@ sudo: false
 language: php
 
 php:
+    - 7.4
     - 7.3
     - 7.2
     - 7.1
@@ -20,9 +21,8 @@ matrix:
 install:
     - composer install
     - if [[ $PREFER_LOWEST == 1 ]]; then composer update --prefer-lowest --prefer-dist --prefer-stable --no-interaction; fi
-    - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.0" ]]; then composer global require phpspec/phpspec:^4; fi
-    - if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.0" ]]; then composer global require phpspec/phpspec:^5; fi
-    - composer global require behat/behat:^3
+    - composer global require phpspec/phpspec
+    - composer global require behat/behat
     - export PATH=$PATH:$HOME/.config/composer/vendor/bin/
 
 script:
