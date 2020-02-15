@@ -27,6 +27,9 @@ final class ComphleteCommand extends Command
         $this->definitionProcessor = $definitionProcessor;
     }
 
+    /**
+     * @return void
+     */
     protected function configure()
     {
         $this
@@ -40,7 +43,7 @@ final class ComphleteCommand extends Command
         ;
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if ($input->getOption('generate-bash-script')) {
             /** @var string|null */
@@ -71,6 +74,8 @@ final class ComphleteCommand extends Command
         $suggestions = $completer->complete($input);
 
         $output->write(implode(self::IFS, $suggestions));
+
+        return 0;
     }
 
     private function generateBashScript(string $appName): string
