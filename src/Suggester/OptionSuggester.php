@@ -10,11 +10,11 @@ use hanneskod\comphlete\Helper;
 
 final class OptionSuggester implements SuggesterInterface
 {
-    /** @var array|callable */
+    /** @var array<string>|callable */
     private $suggestions;
 
     /**
-     * @param array|callable $suggestions Any callable passed must return an array
+     * @param array<string>|callable $suggestions Any callable passed must return an array
      */
     public function __construct($suggestions)
     {

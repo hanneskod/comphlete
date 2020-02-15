@@ -13,10 +13,18 @@ use hanneskod\comphlete\Suggester\OptionValueSuggester;
 
 final class Definition implements DefinitionInterface
 {
+    /** @var array<int, array|callable> */
     private $arguments = [];
+
+    /** @var array<string, string> */
     private $options = [];
+
+    /** @var array<string, array|callable> */
     private $optionValues = [];
 
+    /**
+     * @param array<string>|callable $suggestions
+     */
     public function addArgument(int $argument, $suggestions = []): self
     {
         $this->arguments[$argument] = $suggestions;
@@ -24,6 +32,9 @@ final class Definition implements DefinitionInterface
         return $this;
     }
 
+    /**
+     * @param array<string>|callable|null $suggestions
+     */
     public function addOption(string $option, $suggestions = null): self
     {
         $option = '--' . $option;

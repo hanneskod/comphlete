@@ -34,6 +34,7 @@ final class SymfonyConsoleDefinition implements DefinitionInterface
                     $suggestions = null;
 
                     if ($optionDef->isValueRequired()) {
+                        /** @var array<string> */
                         $suggestions = (array)$optionDef->getDefault();
                     }
 

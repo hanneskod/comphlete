@@ -10,9 +10,12 @@ use hanneskod\comphlete\Helper;
 
 final class OptionValueSuggester implements SuggesterInterface
 {
-    /** @var array */
+    /** @var array<string, array|callable> */
     private $optionMap;
 
+    /**
+     * @param array<string, array|callable> $optionMap
+     */
     public function __construct(array $optionMap)
     {
         $this->optionMap = $optionMap;

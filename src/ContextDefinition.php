@@ -31,6 +31,9 @@ class ContextDefinition implements DefinitionInterface
         return $this->name;
     }
 
+    /**
+     * @param array<string>|callable $suggestions
+     */
     public function addArgument(int $argument, $suggestions = []): self
     {
         if (0 === $argument) {
@@ -41,6 +44,9 @@ class ContextDefinition implements DefinitionInterface
         return $this;
     }
 
+    /**
+     * @param array<string>|callable|null $suggestions
+     */
     public function addOption(string $option, $suggestions = null): self
     {
         $this->definition->addOption($option, $suggestions);

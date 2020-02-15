@@ -25,6 +25,9 @@ class InputFactory
         );
     }
 
+    /**
+     * @param array<string> $argv
+     */
     public function createFromArgv(array $argv): Input
     {
         $line = $argv[1] ?? '';

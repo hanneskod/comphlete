@@ -6,6 +6,10 @@ namespace hanneskod\comphlete;
 
 class Helper
 {
+    /**
+     * @param array<mixed> $values
+     * @return array<mixed>
+     */
     public static function flatten(array $values): array
     {
         return (array)array_reduce(

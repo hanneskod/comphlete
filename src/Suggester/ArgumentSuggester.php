@@ -10,9 +10,12 @@ use hanneskod\comphlete\Helper;
 
 final class ArgumentSuggester implements SuggesterInterface
 {
-    /** @var array */
+    /** @var array<int, array|callable> */
     private $argumentMap;
 
+    /**
+     * @param array<int, array|callable> $argumentMap
+     */
     public function __construct(array $argumentMap)
     {
         $this->argumentMap = $argumentMap;

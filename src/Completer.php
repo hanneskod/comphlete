@@ -14,6 +14,9 @@ class Completer
         $this->definition = $definition;
     }
 
+    /**
+     * @return array<string>
+     */
     public function complete(Input $input): array
     {
         $suggester = $this->definition->getSuggester($input->getSyntaxTree());
