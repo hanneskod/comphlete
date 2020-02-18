@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-final class ComphleteCommand extends Command
+class ComphleteCommand extends Command
 {
     const BASH_POSTFIX = '_comphlete_load_script.sh';
 
